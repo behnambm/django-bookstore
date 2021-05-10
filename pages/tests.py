@@ -3,6 +3,7 @@ from django.urls import reverse, resolve
 
 from .views import (
     HomePageView,
+    AboutPageView,
 )
 
 
@@ -26,3 +27,25 @@ class HomepageTests(SimpleTestCase):
     def test_homepage_url_resolves_homepageview(self):
         view = resolve('/')
         self.assertEqual(view.func.__name__, HomePageView.as_view().__name__)
+
+
+class AboutPageTests(SimpleTestCase):
+    def setUp(self):
+        url = reverse('about')
+        self.response = self.client.get(url)
+
+    def test_about_page_status_code(self):
+        self.assertEqual(self.response.status_code, 200)
+
+    def test_aboutpage_template(self):
+        self.assertTemplateUsed(self.response, 'about.html')
+
+    def test_aboutpage_contains_correct_content(self):
+        self.assertContains(self.response, 'About Page')
+    
+    def test_aboutpage_does_not_contain_incorrect_html(self):
+        self.assertNotContains(self.response, 'some incorrect content')
+    
+    def test_aboutpage_uses_correct_view_class(self):
+        view = resolve('/about/')
+        self.assertEqual(view.func.__name__, AboutPageView.as_view().__name__)

@@ -145,9 +145,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
-
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -186,3 +183,5 @@ EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+LOGIN_URL = 'account_login'
